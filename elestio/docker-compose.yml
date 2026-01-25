@@ -1,0 +1,48 @@
+# Elestio-optimized docker-compose.yml
+# Use this file when deploying to Elestio
+#
+# Required environment variables in Elestio:
+# - SOFTWARE_PASSWORD (will be used for both DB and Admin)
+# - DOMAIN (your Elestio domain)
+
+services:
+  typo3:
+    image: ghcr.io/dkd-internet-service/typo3-camino-demo:latest
+    restart: always
+    ports:
+      - "172.17.0.1:80:80"
+    volumes:
+      - ./typo3_fileadmin:/var/www/html/public/fileadmin
+      - ./typo3_var:/var/www/html/var
+      - ./typo3_config:/var/www/html/config
+    environment:
+      TYPO3_DB_HOST: db
+      TYPO3_DB_PORT: 3306
+      TYPO3_DB_NAME: typo3
+      TYPO3_DB_USERNAME: typo3
+      TYPO3_DB_PASSWORD: ${SOFTWARE_PASSWORD}
+      TYPO3_ADMIN_USERNAME: admin
+      TYPO3_ADMIN_PASSWORD: ${SOFTWARE_PASSWORD}
+      TYPO3_ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@example.com}
+      TYPO3_PROJECT_NAME: TYPO3 v14 Camino Demo
+      TYPO3_BASE_URL: https://${DOMAIN}/
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mariadb:11
+    restart: always
+    volumes:
+      - ./db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${SOFTWARE_PASSWORD}
+      MYSQL_DATABASE: typo3
+      MYSQL_USER: typo3
+      MYSQL_PASSWORD: ${SOFTWARE_PASSWORD}
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
