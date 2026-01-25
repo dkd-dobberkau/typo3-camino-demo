@@ -48,6 +48,19 @@ languages:
 errorHandling: []
 EOF
 
+    # Reverse Proxy Konfiguration (für SSL-terminierende Proxies wie nginx)
+    if [ -n "${TYPO3_REVERSE_PROXY_IP:-}" ]; then
+        echo "Configuring reverse proxy IP: $TYPO3_REVERSE_PROXY_IP"
+        php -r '
+            $settings = include "/var/www/html/config/system/settings.php";
+            $settings["SYS"]["reverseProxyIP"] = getenv("TYPO3_REVERSE_PROXY_IP");
+            file_put_contents(
+                "/var/www/html/config/system/settings.php",
+                "<?php\nreturn " . var_export($settings, true) . ";\n"
+            );
+        '
+    fi
+
     # Permissions setzen
     chown -R www-data:www-data /var/www/html/config
     chown -R www-data:www-data /var/www/html/var

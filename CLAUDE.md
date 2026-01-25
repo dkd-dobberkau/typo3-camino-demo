@@ -56,6 +56,7 @@ Generated at build time (inside container):
 - Waits for MariaDB to be ready
 - Runs `./vendor/bin/typo3 setup` with environment variables
 - Creates site config at `config/sites/main/config.yaml` with Camino theme dependency
+- Configures reverse proxy IP if `TYPO3_REVERSE_PROXY_IP` is set
 - Creates `.installed` marker to prevent re-running on subsequent starts
 
 **Persistent volumes** (defined in docker-compose.yml):
@@ -80,6 +81,7 @@ Configure via `.env` file (copy from `.env.example`):
 | `ADMIN_PASSWORD` | `Admin123!` | TYPO3 backend admin password |
 | `BASE_URL` | `/` | Site base URL (use full URL for HTTPS) |
 | `PORT` | `80` | Host port mapping |
+| `TYPO3_REVERSE_PROXY_IP` | - | IP of SSL-terminating reverse proxy (e.g., `172.18.0.1`) |
 
 ## Access Points
 
@@ -98,3 +100,17 @@ terraform init && terraform apply
 ```
 
 **Manual:** Copy `elestio/docker-compose.yml` to Elestio dashboard with `SOFTWARE_PASSWORD` and `DOMAIN` variables.
+
+## Reverse Proxy Configuration
+
+When running behind an SSL-terminating reverse proxy (like nginx), TYPO3 needs to know the proxy's IP to correctly detect HTTPS. Without this, the backend will throw "Invalid referrer" errors.
+
+**Set via environment variable:**
+```yaml
+environment:
+  TYPO3_REVERSE_PROXY_IP: 172.18.0.1
+```
+
+**What it does:** Configures `$GLOBALS['TYPO3_CONF_VARS']['SYS']['reverseProxyIP']` so TYPO3 trusts the `X-Forwarded-Proto` header from the proxy.
+
+**Finding the proxy IP:** Run `docker exec <typo3-container> env | grep REMOTE` or check `$_SERVER['REMOTE_ADDR']` in a test script.
