@@ -91,15 +91,16 @@ After `docker-compose up -d` (wait ~30 seconds for initial setup):
 
 ## Elestio Deployment
 
-**Terraform (automated):**
+**Terraform (creates infrastructure):**
 ```bash
 cd terraform
 cp terraform.tfvars.example terraform.tfvars
-# Configure: elestio_email, elestio_api_token, software_password
+# Configure: elestio_email, elestio_api_token, admin_email, software_password
 terraform init && terraform apply
+# Then follow the output instructions to add the pipeline manually
 ```
 
-**Manual:** Copy `elestio/docker-compose.yml` to Elestio dashboard with `SOFTWARE_PASSWORD` and `DOMAIN` variables.
+**Manual:** See `docs/elestio-install.md` for complete instructions.
 
 ## Reverse Proxy Configuration
 
