@@ -1,6 +1,6 @@
 services:
   typo3:
-    image: ghcr.io/dkd-internet-service/typo3-camino-demo:latest
+    image: ghcr.io/dkd-dobberkau/typo3-camino-demo:latest
     # Für lokales Bauen stattdessen:
     # build: .
     restart: always

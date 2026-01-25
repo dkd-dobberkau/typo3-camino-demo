@@ -66,7 +66,7 @@ Generated at build time (inside container):
 **CI/CD** (`.github/workflows/build.yml`):
 - Triggers on push to main, weekly schedule, or manual dispatch
 - Builds multi-platform images (amd64, arm64)
-- Publishes to `ghcr.io/dkd-internet-service/typo3-camino-demo`
+- Publishes to `ghcr.io/dkd-dobberkau/typo3-camino-demo`
 
 ## Environment Variables
 

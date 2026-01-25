@@ -6,7 +6,7 @@ Ready-to-run TYPO3 v14 with the official Camino theme – perfect for demos and 
 
 ```bash
 # Clone the repository
-git clone https://github.com/dkd-internet-service/typo3-camino-demo.git
+git clone https://github.com/dkd-dobberkau/typo3-camino-demo.git
 cd typo3-camino-demo
 
 # Copy and adjust environment variables
@@ -37,7 +37,7 @@ Default credentials: `admin` / `Admin123!`
 The image is automatically built and published to GitHub Container Registry:
 
 ```
-ghcr.io/dkd-internet-service/typo3-camino-demo:latest
+ghcr.io/dkd-dobberkau/typo3-camino-demo:latest
 ```
 
 ### Available Tags
