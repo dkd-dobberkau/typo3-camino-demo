@@ -35,10 +35,11 @@ docker-compose down -v
 
 ```
 Repository Files (what you edit):
-├── Dockerfile           # Multi-stage PHP 8.3 + Apache build
+├── Dockerfile           # PHP 8.3 + Apache build
 ├── entrypoint.sh        # First-start TYPO3 setup logic
 ├── docker-compose.yml   # Local development orchestration
-├── elestio/             # Elestio deployment variant
+├── elestio/             # Elestio manual deployment variant
+├── terraform/           # Elestio Infrastructure as Code
 └── .github/workflows/   # CI/CD for ghcr.io publishing
 
 Generated at build time (inside container):
@@ -85,3 +86,15 @@ Configure via `.env` file (copy from `.env.example`):
 After `docker-compose up -d` (wait ~30 seconds for initial setup):
 - **Frontend:** http://localhost
 - **Backend:** http://localhost/typo3 (default: `admin` / `Admin123!`)
+
+## Elestio Deployment
+
+**Terraform (automated):**
+```bash
+cd terraform
+cp terraform.tfvars.example terraform.tfvars
+# Configure: elestio_email, elestio_api_token, software_password
+terraform init && terraform apply
+```
+
+**Manual:** Copy `elestio/docker-compose.yml` to Elestio dashboard with `SOFTWARE_PASSWORD` and `DOMAIN` variables.
