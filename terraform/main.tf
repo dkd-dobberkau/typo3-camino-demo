@@ -17,39 +17,58 @@ provider "elestio" {
 resource "elestio_project" "typo3_camino" {
   name             = var.project_name
   description      = "TYPO3 v14 with Camino Theme Demo"
-  technical_emails = var.technical_emails
+  technical_email  = var.admin_email
 }
 
-resource "elestio_custom" "typo3" {
+resource "elestio_ci_cd_target" "typo3" {
   project_id    = elestio_project.typo3_camino.id
-  version       = "latest"
   server_name   = "typo3-camino"
   server_type   = var.server_type
   provider_name = var.cloud_provider
   datacenter    = var.datacenter
-
   support_level = "level1"
   admin_email   = var.admin_email
-
-  docker_compose = templatefile("${path.module}/docker-compose.tftpl", {
-    domain           = elestio_custom.typo3.cname
-    software_password = var.software_password
-    admin_email      = var.admin_email
-  })
 }
 
-output "typo3_url" {
-  description = "TYPO3 Frontend URL"
-  value       = "https://${elestio_custom.typo3.cname}"
+output "project_id" {
+  description = "Elestio Project ID"
+  value       = elestio_project.typo3_camino.id
 }
 
-output "typo3_backend_url" {
-  description = "TYPO3 Backend URL"
-  value       = "https://${elestio_custom.typo3.cname}/typo3"
+output "target_id" {
+  description = "CI/CD Target ID"
+  value       = elestio_ci_cd_target.typo3.id
 }
 
-output "admin_credentials" {
-  description = "Admin login credentials"
-  value       = "Username: admin / Password: (see SOFTWARE_PASSWORD)"
-  sensitive   = false
+output "server_ip" {
+  description = "Server IP address"
+  value       = elestio_ci_cd_target.typo3.ipv4
+}
+
+output "cname" {
+  description = "Elestio CNAME (use for TYPO3_BASE_URL)"
+  value       = elestio_ci_cd_target.typo3.cname
+}
+
+output "typo3_urls" {
+  description = "TYPO3 access URLs (after pipeline deployment)"
+  value = {
+    frontend = "https://${elestio_ci_cd_target.typo3.cname}"
+    backend  = "https://${elestio_ci_cd_target.typo3.cname}/typo3"
+  }
+}
+
+output "next_steps" {
+  description = "Manual steps to complete deployment"
+  value       = <<-EOT
+
+    CI/CD Target created! Next steps:
+    1. Go to https://dash.elest.io/projects/${elestio_project.typo3_camino.id}
+    2. Click on the CI/CD target "${elestio_ci_cd_target.typo3.server_name}"
+    3. Add Pipeline > Docker Compose
+    4. Paste content from: elestio/docker-compose.yml
+    5. Set DOMAIN=${elestio_ci_cd_target.typo3.cname}
+    6. Deploy!
+
+  EOT
 }

@@ -3,14 +3,13 @@ elestio_email     = "your-email@example.com"
 elestio_api_token = "your-api-token-from-elestio-dashboard"
 
 # Project Settings
-project_name     = "TYPO3 Camino Demo"
-technical_emails = ["admin@example.com"]
-admin_email      = "admin@example.com"
+project_name = "typo3-camino-demo"
+admin_email  = "admin@example.com"
 
 # Password for DB and TYPO3 admin (min 10 chars, upper+lower+digit)
 software_password = "YourSecure123!"
 
 # Infrastructure
 server_type    = "SMALL-1C-2G"    # Options: SMALL-1C-2G, MEDIUM-2C-4G, BIG-4C-8G
-cloud_provider = "hetzner"        # Options: hetzner, digitalocean, vultr, linode, aws-lightsail
+cloud_provider = "hetzner"        # Options: hetzner, digitalocean, vultr, linode, lightsail
 datacenter     = "fsn1"           # Hetzner: fsn1, nbg1, hel1

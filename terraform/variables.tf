@@ -12,13 +12,7 @@ variable "elestio_api_token" {
 variable "project_name" {
   description = "Name of the Elestio project"
   type        = string
-  default     = "TYPO3 Camino Demo"
-}
-
-variable "technical_emails" {
-  description = "List of technical contact emails"
-  type        = list(string)
-  default     = []
+  default     = "typo3-camino-demo"
 }
 
 variable "admin_email" {
@@ -27,7 +21,7 @@ variable "admin_email" {
 }
 
 variable "software_password" {
-  description = "Password for database and TYPO3 admin"
+  description = "Password for database and TYPO3 admin (min 10 chars, upper+lower+digit)"
   type        = string
   sensitive   = true
 }
@@ -39,7 +33,7 @@ variable "server_type" {
 }
 
 variable "cloud_provider" {
-  description = "Cloud provider (hetzner, digitalocean, vultr, linode, aws-lightsail)"
+  description = "Cloud provider (hetzner, digitalocean, vultr, linode, lightsail)"
   type        = string
   default     = "hetzner"
 }
