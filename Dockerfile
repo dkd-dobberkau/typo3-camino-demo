@@ -55,6 +55,9 @@ RUN composer config repositories.enhancely-php vcs https://github.com/enhancely/
     && composer require enhancely/enhancely:@dev \
     && composer clear-cache
 
+# Copy .htaccess for TYPO3 routing (including backend access)
+RUN cp vendor/typo3/cms-install/Resources/Private/FolderStructureTemplateFiles/root-htaccess public/.htaccess
+
 # Create var directory and set permissions
 RUN mkdir -p /var/www/html/var \
     && chown -R www-data:www-data /var/www/html \
