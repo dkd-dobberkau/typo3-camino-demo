@@ -47,8 +47,11 @@ RUN composer create-project "typo3/cms-base-distribution:^14" . --no-interaction
 # Copy local packages
 COPY packages/ /var/www/html/packages/
 
-# Add local packages repository and install enhancely extension
-RUN composer config repositories.local path './packages/*' \
+# Add repositories and install enhancely extension
+RUN composer config repositories.enhancely-php vcs https://github.com/enhancely/enhancely-php \
+    && composer config repositories.local path './packages/*' \
+    && composer config minimum-stability dev \
+    && composer config prefer-stable true \
     && composer require enhancely/enhancely:@dev \
     && composer clear-cache
 
