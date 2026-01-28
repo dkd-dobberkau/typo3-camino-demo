@@ -9,7 +9,7 @@ services:
     image: ghcr.io/dkd-dobberkau/typo3-camino-demo:latest
     restart: always
     ports:
-      - "172.17.0.1:80:80"
+      - "172.17.0.1:8080:80"
     volumes:
       - ./typo3_fileadmin:/var/www/html/public/fileadmin
       - ./typo3_var:/var/www/html/var
