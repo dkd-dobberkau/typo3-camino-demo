@@ -89,6 +89,37 @@ After `docker-compose up -d` (wait ~30 seconds for initial setup):
 - **Frontend:** http://localhost
 - **Backend:** http://localhost/typo3 (default: `admin` / `Admin123!`)
 
+## Changing Admin Password
+
+**Option 1: Via TYPO3 Backend (easiest)**
+
+Log in at `/typo3`, go to **Backend Users** module, edit the admin user, and set a new password.
+
+**Option 2: Create a new admin user via CLI**
+
+```bash
+docker exec -it <typo3-container> ./vendor/bin/typo3 backend:user:create -u newadmin -p "YourPassword123!" -a
+```
+
+**Option 3: Update existing admin password via database**
+
+```bash
+docker exec -it <db-container> mariadb -u typo3 -p<DB_PASSWORD> typo3 -e \
+  "UPDATE be_users SET password='\$argon2i\$v=19\$m=65536,t=16,p=1\$UjdGTjFPYXRpWkxIYnVESQ\$s/oDL6GqoGFIHDp2p2H4Oe+6EkDoFj0NvPv/Ee8FqF4' WHERE username='admin';"
+```
+
+This sets the password to `Password123!`. Replace `<DB_PASSWORD>` with your actual database password from `.env`.
+
+**Option 4: Fresh install with new password**
+
+```bash
+docker-compose down -v
+# Edit ADMIN_PASSWORD in .env
+docker-compose up -d
+```
+
+**Note:** Find container names with `docker ps`. Typical names are `typo3-demo-typo3-1` and `typo3-demo-db-1`.
+
 ## Elestio Deployment
 
 **Terraform (creates infrastructure):**
