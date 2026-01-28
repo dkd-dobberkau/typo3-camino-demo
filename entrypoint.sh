@@ -10,7 +10,7 @@ done
 echo "Database is ready!"
 
 # TYPO3 Setup nur beim ersten Start
-if [ ! -f /var/www/html/.installed ]; then
+if [ ! -f /var/www/html/var/.installed ]; then
     echo "Running TYPO3 setup..."
     
     cd /var/www/html
@@ -66,7 +66,7 @@ EOF
     chown -R www-data:www-data /var/www/html/var
     chown -R www-data:www-data /var/www/html/public/fileadmin
 
-    touch /var/www/html/.installed
+    touch /var/www/html/var/.installed
     echo "============================================"
     echo "TYPO3 setup complete!"
     echo "Frontend: ${TYPO3_BASE_URL:-http://localhost}"
