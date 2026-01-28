@@ -1,0 +1,21 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Enhancely\Enhancely\:
+    resource: '../Classes/*'
+
+  Enhancely\Enhancely\Configuration\ExtensionConfiguration:
+    public: true
+
+  Enhancely\Enhancely\Middleware\JsonLdMiddleware:
+    public: true
+    arguments:
+      $cache: '@cache.enhancely_etag'
+
+  cache.enhancely_etag:
+    class: TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
+    factory: ['@TYPO3\CMS\Core\Cache\CacheManager', 'getCache']
+    arguments: ['enhancely_etag']

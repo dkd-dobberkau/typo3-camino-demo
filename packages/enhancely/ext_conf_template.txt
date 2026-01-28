@@ -1,0 +1,11 @@
+# cat=basic/enable; type=string; label=API Key:Your Enhancely API key (get it from enhancely.ai)
+apiKey =
+
+# cat=basic/enable; type=boolean; label=Enable:Enable or disable JSON-LD generation
+enabled = 1
+
+# cat=advanced; type=string; label=Excluded Page Types:Comma-separated list of page types to exclude (e.g., 404,403)
+excludedPageTypes =
+
+# cat=advanced; type=int+; label=Cache Lifetime:Cache lifetime in seconds (default: 86400 = 24 hours)
+cacheLifetime = 86400

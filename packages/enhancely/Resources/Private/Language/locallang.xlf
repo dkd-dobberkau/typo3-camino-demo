@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="messages" date="2024-01-01T00:00:00Z">
+        <header/>
+        <body>
+            <trans-unit id="extension.title">
+                <source>Enhancely JSON-LD</source>
+            </trans-unit>
+            <trans-unit id="extension.description">
+                <source>AI-generated JSON-LD structured data for improved SEO and LLM visibility</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

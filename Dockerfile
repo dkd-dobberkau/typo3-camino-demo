@@ -44,6 +44,14 @@ RUN composer create-project "typo3/cms-base-distribution:^14" . --no-interaction
     && composer require typo3/theme-camino:^14 \
     && composer clear-cache
 
+# Copy local packages
+COPY packages/ /var/www/html/packages/
+
+# Add local packages repository and install enhancely extension
+RUN composer config repositories.local path './packages/*' \
+    && composer require enhancely/enhancely:@dev \
+    && composer clear-cache
+
 # Create var directory and set permissions
 RUN mkdir -p /var/www/html/var \
     && chown -R www-data:www-data /var/www/html \
