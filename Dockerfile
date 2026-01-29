@@ -44,8 +44,10 @@ RUN composer create-project "typo3/cms-base-distribution:^14" . --no-interaction
     && composer require typo3/theme-camino:^14 \
     && composer clear-cache
 
-# Install enhancely extension from Packagist
+# Install extensions from Packagist
 RUN composer require enhancely/enhancely-for-typo3 \
+    dkd-dobberkau/fal-photo-browser \
+    hn/typo3-mcp-server \
     && composer clear-cache
 
 # Copy .htaccess for TYPO3 routing (including backend access)
