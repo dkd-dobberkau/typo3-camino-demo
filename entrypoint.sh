@@ -48,6 +48,11 @@ languages:
 errorHandling: []
 EOF
 
+    # Set root page as site root (required for site configuration to work)
+    echo "Setting page 1 as site root..."
+    mysql -h"$TYPO3_DB_HOST" -u"$TYPO3_DB_USERNAME" -p"$TYPO3_DB_PASSWORD" "$TYPO3_DB_NAME" \
+        -e "UPDATE pages SET is_siteroot=1 WHERE uid=1;"
+
     # Reverse Proxy Konfiguration (für SSL-terminierende Proxies wie nginx)
     if [ -n "${TYPO3_REVERSE_PROXY_IP:-}" ]; then
         echo "Configuring reverse proxy IP: $TYPO3_REVERSE_PROXY_IP"
