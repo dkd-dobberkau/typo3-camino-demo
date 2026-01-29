@@ -45,7 +45,7 @@ RUN composer create-project "typo3/cms-base-distribution:^14" . --no-interaction
     && composer clear-cache
 
 # Install extensions from Packagist
-RUN composer require enhancely/enhancely-for-typo3:^1.1.1 \
+RUN composer require enhancely/enhancely-for-typo3:^1.2.0 \
     dkd-dobberkau/fal-photo-browser \
     && composer clear-cache
 
