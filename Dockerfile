@@ -45,8 +45,8 @@ RUN composer create-project "typo3/cms-base-distribution:^14" . --no-interaction
     && composer clear-cache
 
 # Install extensions from Packagist
-RUN composer require enhancely/enhancely-for-typo3 \
-    dkd-dobberkau/fal-photo-browser \
+# Note: enhancely/enhancely-for-typo3 removed due to namespace bug in v14
+RUN composer require dkd-dobberkau/fal-photo-browser \
     && composer clear-cache
 
 # Copy .htaccess for TYPO3 routing (including backend access)
