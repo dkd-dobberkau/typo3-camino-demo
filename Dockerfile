@@ -44,15 +44,8 @@ RUN composer create-project "typo3/cms-base-distribution:^14" . --no-interaction
     && composer require typo3/theme-camino:^14 \
     && composer clear-cache
 
-# Copy local packages
-COPY packages/ /var/www/html/packages/
-
-# Add repositories and install enhancely extension
-RUN composer config repositories.enhancely-php vcs https://github.com/enhancely/enhancely-php \
-    && composer config repositories.local path './packages/*' \
-    && composer config minimum-stability dev \
-    && composer config prefer-stable true \
-    && composer require enhancely/enhancely:@dev \
+# Install enhancely extension from Packagist
+RUN composer require enhancely/enhancely-for-typo3 \
     && composer clear-cache
 
 # Copy .htaccess for TYPO3 routing (including backend access)

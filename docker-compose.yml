@@ -1,8 +1,8 @@
 services:
   typo3:
-    image: ghcr.io/dkd-dobberkau/typo3-camino-demo:latest
-    # Für lokales Bauen stattdessen:
-    # build: .
+    # image: ghcr.io/dkd-dobberkau/typo3-camino-demo:latest
+    # Für lokales Bauen:
+    build: .
     restart: always
     ports:
       - "${PORT:-80}:80"
