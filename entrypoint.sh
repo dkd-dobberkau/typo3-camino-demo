@@ -83,4 +83,35 @@ else
     echo "TYPO3 already installed, skipping setup."
 fi
 
+# Always run database schema update (for extension updates in new images)
+echo "Checking database schema for extension fields..."
+
+# Function to add column if it doesn't exist
+add_column_if_missing() {
+    local table=$1
+    local column=$2
+    local definition=$3
+
+    EXISTS=$(mysql -h"$TYPO3_DB_HOST" -u"$TYPO3_DB_USERNAME" -p"$TYPO3_DB_PASSWORD" "$TYPO3_DB_NAME" -N -e \
+        "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='$TYPO3_DB_NAME' AND TABLE_NAME='$table' AND COLUMN_NAME='$column';")
+
+    if [ "$EXISTS" = "0" ]; then
+        echo "  Adding $table.$column..."
+        mysql -h"$TYPO3_DB_HOST" -u"$TYPO3_DB_USERNAME" -p"$TYPO3_DB_PASSWORD" "$TYPO3_DB_NAME" -e \
+            "ALTER TABLE $table ADD COLUMN $column $definition;"
+    fi
+}
+
+# fal-photo-browser extension fields
+add_column_if_missing "sys_file_metadata" "unsplash_photo_id" "varchar(50) DEFAULT '' NOT NULL"
+add_column_if_missing "sys_file_metadata" "unsplash_photo_url" "varchar(500) DEFAULT '' NOT NULL"
+add_column_if_missing "sys_file_metadata" "unsplash_photographer_url" "varchar(500) DEFAULT '' NOT NULL"
+
+echo "Database schema check complete."
+
+# Clear TYPO3 cache after schema update
+echo "Clearing TYPO3 cache..."
+cd /var/www/html
+./vendor/bin/typo3 cache:flush 2>/dev/null || true
+
 exec "$@"
