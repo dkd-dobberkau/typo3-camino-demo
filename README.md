@@ -61,6 +61,7 @@ ghcr.io/dkd-dobberkau/typo3-camino-demo:latest
 | `ADMIN_PASSWORD` | `Admin123!` | TYPO3 admin password |
 | `ADMIN_EMAIL` | `admin@example.com` | TYPO3 admin email |
 | `PROJECT_NAME` | `TYPO3 v14 Camino Demo` | Project name shown in backend |
+| `WEBSITE_TITLE` | `Camino de Compostela` | Website title shown on frontend; also used as `og:site_name` |
 | `BASE_URL` | `/` | Base URL for the site |
 | `PORT` | `80` | HTTP port |
 
@@ -71,6 +72,10 @@ ghcr.io/dkd-dobberkau/typo3-camino-demo:latest
 - **MariaDB 11** – production-ready database
 - **Apache 2.4** with mod_rewrite enabled
 - **PHP 8.3** with all required extensions
+- **`dkd/og-meta`** – local TYPO3 sitepackage (`packages/og-meta/`) that emits
+  `og:site_name` and `og:title`, so JSON-LD crawlers like Enhancely receive
+  separated brand and page-title signals instead of conflating them via the
+  HTML `<title>` tag
 
 ## Building Locally
 

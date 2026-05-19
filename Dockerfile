@@ -44,9 +44,14 @@ RUN composer create-project "typo3/cms-base-distribution:^14" . --no-interaction
     && composer require typo3/theme-camino:^14 \
     && composer clear-cache
 
-# Install extensions from Packagist
+# Copy local TYPO3 extensions into the path repository directory
+# (typo3/cms-base-distribution already registers ./packages/* in composer.json)
+COPY packages /var/www/html/packages
+
+# Install extensions from Packagist and the local path repository
 RUN composer require enhancely/enhancely-for-typo3:^1.2.0 \
-    dkd-dobberkau/fal-photo-browser \
+       dkd-dobberkau/fal-photo-browser \
+       dkd/og-meta:^1.0 \
     && composer clear-cache
 
 # Copy .htaccess for TYPO3 routing (including backend access)

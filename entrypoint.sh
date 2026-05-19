@@ -33,9 +33,11 @@ if [ ! -f /var/www/html/var/.installed ]; then
     mkdir -p /var/www/html/config/sites/main
     cat > /var/www/html/config/sites/main/config.yaml << EOF
 base: '${TYPO3_BASE_URL:-/}'
+websiteTitle: '${TYPO3_WEBSITE_TITLE:-Camino de Compostela}'
 rootPageId: 1
 dependencies:
   - typo3/theme-camino
+  - dkd/og-meta
 languages:
   -
     title: English
@@ -43,6 +45,7 @@ languages:
     languageId: 0
     base: /
     locale: en_US.UTF-8
+    websiteTitle: '${TYPO3_WEBSITE_TITLE:-Camino de Compostela}'
     navigationTitle: English
     flag: us
 errorHandling: []

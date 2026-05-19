@@ -1,0 +1,9 @@
+# JSON-LD crawlers (e.g. Enhancely) fall back to the <title> tag when no
+# Open Graph tags are present. TYPO3's default <title> is
+# "{websiteTitle}{separator}{pageTitle}", which then ends up duplicated
+# in WebSite.name, Organization.name AND WebPage.name. Emitting og:site_name
+# and og:title gives the crawler separated, semantically correct signals.
+page.meta {
+    og:site_name.data = site:websiteTitle
+    og:title.data = page:title
+}
