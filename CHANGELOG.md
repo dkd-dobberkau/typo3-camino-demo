@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Pin `dkd-dobberkau/fal-photo-browser` to `^1.1` in `Dockerfile` so builds
+  are reproducible. Previously the package was required without a constraint,
+  letting Composer pick whatever was newest at build time.
+
 ### Added
 
 - Local TYPO3 sitepackage `packages/og-meta` (`dkd/og-meta`) that emits
