@@ -41,6 +41,7 @@ WORKDIR /var/www/html
 
 # TYPO3 v14 mit Camino installieren
 RUN composer create-project "typo3/cms-base-distribution:^14" . --no-interaction \
+    && composer config --unset platform.php \
     && composer require typo3/theme-camino:^14 \
     && composer clear-cache
 
@@ -52,6 +53,7 @@ COPY packages /var/www/html/packages
 RUN composer require enhancely/enhancely-for-typo3:^1.4.0 \
        dkd-dobberkau/fal-photo-browser:^1.1 \
        dkd/og-meta:^1.0 \
+       flowd/typo3-firewall:^0.3.0 \
     && composer clear-cache
 
 # Copy .htaccess for TYPO3 routing (including backend access)

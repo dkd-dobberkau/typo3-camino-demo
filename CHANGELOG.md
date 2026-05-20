@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `flowd/typo3-firewall:^0.3.0` — PSR-15 middleware that protects the site
+  against malicious requests. Pulls in `flowd/phirewall:^0.4.0` as a
+  transitive dependency.
+
 ### Changed
 
 - Pin `dkd-dobberkau/fal-photo-browser` to `^1.1` in `Dockerfile` so builds
@@ -15,6 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bump `enhancely/enhancely-for-typo3` constraint floor from `^1.2.0` to
   `^1.4.0` to reflect the actually installed minor (1.4.7). Still allows any
   update up to but not including 2.0.
+- Unset the `config.platform.php = 8.2.0` override that
+  `typo3/cms-base-distribution` writes into `composer.json`. The container
+  PHP is 8.3.x and the override was blocking packages that require
+  `php >=8.3` (e.g. `flowd/typo3-firewall`).
 
 ### Added
 
