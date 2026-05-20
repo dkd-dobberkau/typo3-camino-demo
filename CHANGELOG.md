@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `flowd/typo3-firewall:^0.3.0` — PSR-15 middleware that protects the site
   against malicious requests. Pulls in `flowd/phirewall:^0.4.0` as a
   transitive dependency.
+- Local sitepackage `packages/firewall-logger` (`dkd/firewall-logger`) that
+  registers a PSR-14 listener for `Flowd\Phirewall\Events\BlocklistMatched`
+  and writes a structured `notice` entry to the TYPO3 logger (rule, method,
+  URI, remote_addr, user_agent, referer). Lets blocked requests show up in
+  `var/log/typo3_*.log` for later forwarding to Loki/ELK.
 
 ### Changed
 

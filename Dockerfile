@@ -60,6 +60,7 @@ COPY packages /var/www/html/packages
 RUN composer require enhancely/enhancely-for-typo3:^1.4.0 \
        dkd-dobberkau/fal-photo-browser:^1.1 \
        dkd/og-meta:^1.0 \
+       dkd/firewall-logger:^1.0 \
        flowd/typo3-firewall:^0.3.0 \
     && composer clear-cache
 

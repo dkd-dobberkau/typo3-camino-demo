@@ -1,0 +1,21 @@
+{
+    "name": "dkd/firewall-logger",
+    "type": "typo3-cms-extension",
+    "description": "Logs flowd/typo3-firewall BlocklistMatched events to the TYPO3 logger so blocked requests show up in var/log/typo3_*.log with rule, IP, method, URI and User-Agent.",
+    "license": "GPL-2.0-or-later",
+    "version": "1.0.0",
+    "require": {
+        "typo3/cms-core": "^13.0 || ^14.0",
+        "flowd/typo3-firewall": "^0.3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dkd\\FirewallLogger\\": "Classes/"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "firewall_logger"
+        }
+    }
+}
