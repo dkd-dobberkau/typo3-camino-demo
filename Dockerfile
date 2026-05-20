@@ -10,8 +10,15 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     unzip \
     git \
+    locales \
     default-mysql-client \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+    && locale-gen en_US.UTF-8
+
+ENV LANG=en_US.UTF-8 \
+    LC_ALL=en_US.UTF-8 \
+    LANGUAGE=en_US:en
 
 # PHP Extensions für TYPO3
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \

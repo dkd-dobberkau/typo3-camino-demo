@@ -25,6 +25,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `typo3/cms-base-distribution` writes into `composer.json`. The container
   PHP is 8.3.x and the override was blocking packages that require
   `php >=8.3` (e.g. `flowd/typo3-firewall`).
+- Install the `locales` package and generate `en_US.UTF-8` in the image,
+  with `LANG`/`LC_ALL`/`LANGUAGE` set as env vars. Stops the recurring
+  `Locale "en_US.UTF-8" not found` errors in `var/log/typo3_*.log` that
+  the site config (`languages[0].locale = en_US.UTF-8`) triggers on every
+  request.
 
 ### Added
 
