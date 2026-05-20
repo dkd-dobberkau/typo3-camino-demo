@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pin `dkd-dobberkau/fal-photo-browser` to `^1.1` in `Dockerfile` so builds
   are reproducible. Previously the package was required without a constraint,
   letting Composer pick whatever was newest at build time.
+- Bump `enhancely/enhancely-for-typo3` constraint floor from `^1.2.0` to
+  `^1.4.0` to reflect the actually installed minor (1.4.7). Still allows any
+  update up to but not including 2.0.
 
 ### Added
 
