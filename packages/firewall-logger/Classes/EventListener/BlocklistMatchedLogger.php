@@ -20,12 +20,19 @@ final readonly class BlocklistMatchedLogger
     {
         $request = $event->serverRequest;
         $serverParams = $request->getServerParams();
+        $remoteAddr = $serverParams['REMOTE_ADDR'] ?? null;
 
-        $this->logger->notice('Firewall blocked request', [
+        $forwardedFor = $request->getHeaderLine('X-Forwarded-For');
+        $clientIp = $forwardedFor !== ''
+            ? trim(explode(',', $forwardedFor)[0])
+            : $remoteAddr;
+
+        $this->logger->warning('Firewall blocked request', [
             'rule' => $event->rule,
             'method' => $request->getMethod(),
             'uri' => (string)$request->getUri(),
-            'remote_addr' => $serverParams['REMOTE_ADDR'] ?? null,
+            'client_ip' => $clientIp,
+            'remote_addr' => $remoteAddr,
             'user_agent' => $request->getHeaderLine('User-Agent'),
             'referer' => $request->getHeaderLine('Referer') ?: null,
         ]);
