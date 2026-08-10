@@ -22,6 +22,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Bump `enhancely/enhancely-for-typo3` from `^1.4.0` to `^1.5.0` in
+  `Dockerfile`. 1.5.0 is the outcome of the internal dkd code review
+  (Redmine #245854) and carries three fixes that affect this demo directly:
+  the backend module could never read cache entries written by the frontend,
+  a stale layout copy shadowed the core module layout on TYPO3 v14, and API
+  requests bypassed TYPO3's HTTP configuration so proxy settings did not
+  apply. The release also makes the request timeout configurable — it was
+  hardcoded to 10 s, which is the worst case this demo would show if the
+  Enhancely API were unreachable.
+
+  The four breaking changes in 1.5.0 concern code calling the extension's
+  PHP API directly. This project only installs the extension, so none apply.
+
 - Pin `dkd-dobberkau/fal-photo-browser` to `^1.1` in `Dockerfile` so builds
   are reproducible. Previously the package was required without a constraint,
   letting Composer pick whatever was newest at build time.
