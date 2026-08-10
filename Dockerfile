@@ -57,7 +57,7 @@ RUN composer create-project "typo3/cms-base-distribution:^14" . --no-interaction
 COPY packages /var/www/html/packages
 
 # Install extensions from Packagist and the local path repository
-RUN composer require enhancely/enhancely-for-typo3:^1.4.0 \
+RUN composer require enhancely/enhancely-for-typo3:^1.5.0 \
        dkd-dobberkau/fal-photo-browser:^1.1 \
        dkd/og-meta:^1.0 \
        dkd/firewall-logger:^1.0 \
